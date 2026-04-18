@@ -2,6 +2,8 @@ import { adminClient } from '@/lib/supabase/admin'
 import { TORRIDONIA_PROPERTY_ID } from '@/lib/constants'
 import BroadcastForm from '@/components/BroadcastForm'
 
+export const dynamic = 'force-dynamic'
+
 export default async function BroadcastPage() {
   const { data: staff } = await adminClient
     .from('users')

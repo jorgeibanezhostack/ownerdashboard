@@ -2,6 +2,8 @@ import { adminClient } from '@/lib/supabase/admin'
 import { TORRIDONIA_PROPERTY_ID } from '@/lib/constants'
 import LiveFeed from '@/components/LiveFeed'
 
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardPage() {
   const today = new Date()
   today.setHours(0, 0, 0, 0)

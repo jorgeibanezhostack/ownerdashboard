@@ -2,6 +2,8 @@ import { adminClient } from '@/lib/supabase/admin'
 import { TORRIDONIA_PROPERTY_ID } from '@/lib/constants'
 import TaskAssignForm from '@/components/TaskAssignForm'
 
+export const dynamic = 'force-dynamic'
+
 export default async function TasksPage() {
   const [{ data: tasks }, { data: staff }] = await Promise.all([
     adminClient

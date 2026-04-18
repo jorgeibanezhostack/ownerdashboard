@@ -1,11 +1,8 @@
-import { createClient } from '@/lib/supabase/server'
 import { adminClient } from '@/lib/supabase/admin'
 import { TORRIDONIA_PROPERTY_ID } from '@/lib/constants'
 import TaskAssignForm from '@/components/TaskAssignForm'
 
 export default async function TasksPage() {
-  const supabase = await createClient()
-
   const [{ data: tasks }, { data: staff }] = await Promise.all([
     adminClient
       .from('tasks')

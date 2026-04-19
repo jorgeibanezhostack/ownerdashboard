@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     process.env.NEXT_PUBLIC_APP_URL ||
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
 
-  await adminClient.auth.admin.generateLink({
+  const { data, error } = await adminClient.auth.admin.generateLink({
     type: 'magiclink',
     email,
     options: {
@@ -21,5 +21,13 @@ export async function POST(req: NextRequest) {
     },
   })
 
-  return NextResponse.json({ ok: true })
+  if (error) {
+    console.error('[send-magic-link] error:', error.message)
+    return NextResponse.json({ ok: false, error: error.message }, { status: 500 })
+  }
+
+  const actionLink = data?.properties?.action_link ?? null
+  console.log('[send-magic-link] generated link for', email, ':', actionLink)
+
+  return NextResponse.json({ ok: true, action_link: actionLink })
 }

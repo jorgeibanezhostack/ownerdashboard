@@ -5,10 +5,14 @@ import { useState } from 'react'
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'sent' | 'error'>('idle')
+  const [actionLink, setActionLink] = useState<string | null>(null)
+  const [errorMsg, setErrorMsg] = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setStatus('loading')
+    setActionLink(null)
+    setErrorMsg('')
 
     const res = await fetch('/api/send-magic-link', {
       method: 'POST',
@@ -16,10 +20,14 @@ export default function LoginPage() {
       body: JSON.stringify({ email }),
     })
 
-    if (res.ok) {
+    const data = await res.json()
+
+    if (res.ok && data.ok) {
       setStatus('sent')
+      if (data.action_link) setActionLink(data.action_link)
     } else {
       setStatus('error')
+      setErrorMsg(data.error ?? 'Error desconocido')
     }
   }
 
@@ -30,11 +38,34 @@ export default function LoginPage() {
         <p className="text-sm text-gray-500 mb-6">Owner Dashboard</p>
 
         {status === 'sent' ? (
-          <div className="text-center py-4">
-            <p className="text-gray-700 font-medium">Revisa tu email</p>
-            <p className="text-sm text-gray-500 mt-1">
-              Te enviamos un enlace de acceso a <strong>{email}</strong>
-            </p>
+          <div className="space-y-4">
+            <div className="text-center py-2">
+              <p className="text-gray-700 font-medium">Revisa tu email</p>
+              <p className="text-sm text-gray-500 mt-1">
+                Te enviamos un enlace de acceso a <strong>{email}</strong>
+              </p>
+            </div>
+
+            {actionLink && (
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                <p className="text-xs text-gray-500 mb-2">
+                  ¿No llegó el email? Accede directamente:
+                </p>
+                <a
+                  href={actionLink}
+                  className="block w-full text-center bg-gray-900 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors"
+                >
+                  Acceder al dashboard →
+                </a>
+              </div>
+            )}
+
+            <button
+              onClick={() => { setStatus('idle'); setActionLink(null) }}
+              className="w-full text-sm text-gray-400 hover:text-gray-600 text-center"
+            >
+              Volver
+            </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -54,7 +85,7 @@ export default function LoginPage() {
             </div>
 
             {status === 'error' && (
-              <p className="text-sm text-red-600">Hubo un error. Intenta de nuevo.</p>
+              <p className="text-sm text-red-600">{errorMsg || 'Hubo un error. Intenta de nuevo.'}</p>
             )}
 
             <button

@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { adminClient } from '@/lib/supabase/admin'
 import { requireOwnerOrManager } from '@/lib/apiAuth'
 import { TORRIDONIA_PROPERTY_ID } from '@/lib/constants'
-// @ts-expect-error no types for node-ical
 import ical from 'node-ical'
 
 export async function POST(req: NextRequest) {

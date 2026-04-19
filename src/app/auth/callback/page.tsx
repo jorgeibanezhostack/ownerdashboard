@@ -9,15 +9,30 @@ function CallbackHandler() {
   const params = useSearchParams()
 
   useEffect(() => {
+    const supabase = createClient()
     const token_hash = params.get('token_hash')
     const type = params.get('type')
+    const code = params.get('code')
 
     if (token_hash && type) {
-      const supabase = createClient()
+      // Direct token_hash flow (our bypass button)
       supabase.auth
         .verifyOtp({ token_hash, type: 'email' })
         .then(({ error }) => {
           if (error) {
+            console.error('[callback] verifyOtp error:', error.message)
+            router.replace('/login?error=invalid_link')
+          } else {
+            router.replace('/dashboard')
+          }
+        })
+    } else if (code) {
+      // PKCE flow fallback
+      supabase.auth
+        .exchangeCodeForSession(code)
+        .then(({ error }) => {
+          if (error) {
+            console.error('[callback] exchangeCode error:', error.message)
             router.replace('/login?error=invalid_link')
           } else {
             router.replace('/dashboard')

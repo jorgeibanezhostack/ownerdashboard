@@ -5,13 +5,13 @@ import { useState } from 'react'
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'sent' | 'error'>('idle')
-  const [actionLink, setActionLink] = useState<string | null>(null)
+  const [callbackUrl, setCallbackUrl] = useState<string | null>(null)
   const [errorMsg, setErrorMsg] = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setStatus('loading')
-    setActionLink(null)
+    setCallbackUrl(null)
     setErrorMsg('')
 
     const res = await fetch('/api/send-magic-link', {
@@ -24,7 +24,7 @@ export default function LoginPage() {
 
     if (res.ok && data.ok) {
       setStatus('sent')
-      if (data.action_link) setActionLink(data.action_link)
+      if (data.callback_url) setCallbackUrl(data.callback_url)
     } else {
       setStatus('error')
       setErrorMsg(data.error ?? 'Error desconocido')
@@ -46,13 +46,13 @@ export default function LoginPage() {
               </p>
             </div>
 
-            {actionLink && (
+            {callbackUrl && (
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
                 <p className="text-xs text-gray-500 mb-2">
                   ¿No llegó el email? Accede directamente:
                 </p>
                 <a
-                  href={actionLink}
+                  href={callbackUrl}
                   className="block w-full text-center bg-gray-900 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors"
                 >
                   Acceder al dashboard →
@@ -61,7 +61,7 @@ export default function LoginPage() {
             )}
 
             <button
-              onClick={() => { setStatus('idle'); setActionLink(null) }}
+              onClick={() => { setStatus('idle'); setCallbackUrl(null) }}
               className="w-full text-sm text-gray-400 hover:text-gray-600 text-center"
             >
               Volver

@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @font-face { font-family: 'Inter'; src: url('/fonts/Inter-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'Inter'; src: url('/fonts/Inter-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
@@ -36,12 +38,6 @@
   }
 }
 
-@theme inline {
-  --color-primary: var(--teal);
-  --color-accent: var(--neon);
-  --color-surface: var(--surface);
-  --font-sans: var(--font-sans);
-}
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }

@@ -8,8 +8,7 @@ export default async function TasksPage() {
   const [{ data: tasks }, { data: staff }] = await Promise.all([
     adminClient
       .from('template_tasks')
-      .select('id, title, role_category')
-      .eq('property_id', TORRIDONIA_PROPERTY_ID)
+      .select('id, title, category')      .eq('property_id', TORRIDONIA_PROPERTY_ID)
       .order('title'),
     adminClient
       .from('users')

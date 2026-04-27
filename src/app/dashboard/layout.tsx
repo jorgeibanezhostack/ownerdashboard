@@ -26,7 +26,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const propertyName = property?.name ?? 'Torridonia'
 
   const navItems = [
-    { href: '/dashboard', label: 'Inicio' },
+    { href: '/dashboard', label: '' },
     { href: '/dashboard/bookings', label: 'Reservas' },
     { href: '/dashboard/staff', label: 'Staff' },
     { href: '/dashboard/tasks', label: 'Tareas' },

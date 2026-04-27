@@ -50,27 +50,27 @@ export default function TaskAssignForm({
     if (res.ok) {
       const data = await res.json()
       setStatus('success')
-      setMessage(`Tarea asignada a ${data.assignee_name}. Notificación enviada.`)
+      setMessage(`Task assigned to ${data.assignee_name}. Notification sent.`)
       setTaskId('')
       setAssignedTo('')
       setDueDate('')
     } else {
       setStatus('error')
-      setMessage('Error al asignar la tarea. Intenta de nuevo.')
+      setMessage('Error assigning task. Please try again.')
     }
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Tarea</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Task</label>
         <select
           required
           value={taskId}
           onChange={(e) => setTaskId(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
         >
-          <option value="">Selecciona una tarea</option>
+          <option value="">Select a task</option>
           {tasks.map((t) => (
             <option key={t.id} value={t.id}>
               {t.title} — {t.role_category}
@@ -80,14 +80,14 @@ export default function TaskAssignForm({
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Asignar a</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Assign to</label>
         <select
           required
           value={assignedTo}
           onChange={(e) => setAssignedTo(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
         >
-          <option value="">Selecciona un miembro del staff</option>
+          <option value="">Select a staff member</option>
           {staff.map((u) => (
             <option key={u.id} value={u.id}>
               {u.full_name} ({u.role})
@@ -97,7 +97,7 @@ export default function TaskAssignForm({
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Fecha límite</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Due date</label>
         <input
           type="date"
           required
@@ -120,8 +120,4 @@ export default function TaskAssignForm({
         disabled={status === 'loading'}
         className="w-full bg-gray-900 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
-        {status === 'loading' ? 'Asignando...' : 'Asignar tarea y notificar'}
-      </button>
-    </form>
-  )
-}
+        {status === 'loading'

@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 export default async function TasksPage() {
   const [{ data: tasks }, { data: staff }] = await Promise.all([
     adminClient
-      .from('tasks')
+      .from('template_tasks')
       .select('id, title, role_category')
       .eq('property_id', TORRIDONIA_PROPERTY_ID)
       .order('title'),
@@ -22,9 +22,9 @@ export default async function TasksPage() {
 
   return (
     <div className="max-w-lg">
-      <h1 className="text-xl font-semibold text-gray-900 mb-1">Asignar tarea</h1>
+      <h1 className="text-xl font-semibold text-gray-900 mb-1">Assign task</h1>
       <p className="text-sm text-gray-500 mb-6">
-        El staff asignado recibirá una notificación automática.
+        The assigned staff will receive an automatic notification.
       </p>
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <TaskAssignForm tasks={tasks ?? []} staff={staff ?? []} />

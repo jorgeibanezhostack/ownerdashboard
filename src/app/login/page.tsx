@@ -28,7 +28,7 @@ export default function LoginPage() {
       if (data.callback_url) setCallbackUrl(data.callback_url)
     } else {
       setStatus('error')
-      setErrorMsg(data.error ?? 'Error desconocido')
+      setErrorMsg(data.error ?? 'Unknown error')
     }
   }
 
@@ -43,20 +43,20 @@ export default function LoginPage() {
         {status === 'sent' ? (
           <div className="space-y-4">
             <div className="text-center py-2">
-              <p className="text-gray-700 font-medium">Revisa tu email</p>
+              <p className="text-gray-700 font-medium">Check your email</p>
               <p className="text-sm text-gray-500 mt-1">
-                Enviamos un enlace a <strong>{email}</strong>
+                We sent a link to <strong>{email}</strong>
               </p>
             </div>
 
             {callbackUrl && (
               <div className="bg-teal-50 border border-teal-200 rounded-lg p-3">
-                <p className="text-xs text-teal-700 mb-2">¿No llegó el email? Accede directamente:</p>
-                <a
+                <p className="text-xs text-teal-700 mb-2">Didn't get the email? Access directly:</p>
+                
                   href={callbackUrl}
                   className="block w-full text-center bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 transition-colors"
                 >
-                  Acceder al dashboard →
+                  Access dashboard →
                 </a>
               </div>
             )}
@@ -65,7 +65,7 @@ export default function LoginPage() {
               onClick={() => { setStatus('idle'); setCallbackUrl(null) }}
               className="w-full text-sm text-gray-400 hover:text-gray-600 text-center"
             >
-              Volver
+              Back
             </button>
           </div>
         ) : (
@@ -80,13 +80,13 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu@email.com"
+                placeholder="you@email.com"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent"
               />
             </div>
 
             {status === 'error' && (
-              <p className="text-sm text-red-600">{errorMsg || 'Hubo un error. Intenta de nuevo.'}</p>
+              <p className="text-sm text-red-600">{errorMsg || 'There was an error. Please try again.'}</p>
             )}
 
             <button
@@ -94,7 +94,7 @@ export default function LoginPage() {
               disabled={status === 'loading'}
               className="w-full bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {status === 'loading' ? 'Enviando...' : 'Enviar enlace de acceso'}
+              {status === 'loading' ? 'Sending...' : 'Send access link'}
             </button>
           </form>
         )}

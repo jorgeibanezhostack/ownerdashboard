@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 interface Task {
   id: string
   title: string
-  role_category: string
+  category: string
 }
 
 interface StaffUser {
@@ -71,9 +71,9 @@ export default function TaskAssignForm({
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
         >
           <option value="">Select a task</option>
-          {tasks.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.title} — {t.role_category}
+          {tasks.map((task) => (
+            <option key={task.id} value={task.id}>
+              {task.title} ({task.category})
             </option>
           ))}
         </select>
@@ -87,10 +87,10 @@ export default function TaskAssignForm({
           onChange={(e) => setAssignedTo(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
         >
-          <option value="">Select a staff member</option>
-          {staff.map((u) => (
-            <option key={u.id} value={u.id}>
-              {u.full_name} ({u.role})
+          <option value="">Select staff member</option>
+          {staff.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.full_name} ({user.role})
             </option>
           ))}
         </select>
@@ -120,4 +120,8 @@ export default function TaskAssignForm({
         disabled={status === 'loading'}
         className="w-full bg-gray-900 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
-        {status === 'loading'
+        {status === 'loading' ? 'Assigning...' : 'Assign task'}
+      </button>
+    </form>
+  )
+}

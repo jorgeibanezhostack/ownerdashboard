@@ -52,9 +52,9 @@ export default async function DashboardPage() {
   ])
 
   const quickActions = [
-    { href: '/dashboard/tasks', label: '+ Asignar tarea' },
-    { href: '/dashboard/shifts', label: '+ Crear turno' },
-    { href: '/dashboard/staff', label: '+ Agregar staff' },
+    { href: '/dashboard/tasks', label: '+ Assign task' },
+    { href: '/dashboard/shifts', label: '+ Create shift' },
+    { href: '/dashboard/staff', label: '+ Add staff' },
     { href: '/dashboard/broadcast', label: '→ Broadcast' },
   ]
 
@@ -63,7 +63,7 @@ export default async function DashboardPage() {
       <div>
         <h1 className="text-xl font-semibold text-gray-900">Torridonia Highland Hostel</h1>
         <p className="text-sm text-gray-500 mt-0.5">
-          {today.toLocaleDateString('es-ES', {
+          {today.toLocaleDateString('en-US', {
             weekday: 'long',
             day: 'numeric',
             month: 'long',
@@ -72,34 +72,34 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      {/* KPI Row 1 — Operaciones */}
+      {/* KPI Row 1 — Operations */}
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-white rounded-xl border border-gray-200 border-l-4 border-l-[#004F59] p-4">
-          <p className="text-xs text-gray-500 mb-1">Tareas completadas hoy</p>
+          <p className="text-xs text-gray-500 mb-1">Tasks completed today</p>
           <p className="text-2xl font-semibold text-[#004F59]">{completions?.length ?? 0}</p>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 border-l-4 border-l-[#00BFB3] p-4">
-          <p className="text-xs text-gray-500 mb-1">Staff en turno ahora</p>
+          <p className="text-xs text-gray-500 mb-1">Staff on shift now</p>
           <p className="text-2xl font-semibold text-[#00BFB3]">{activeShifts ?? 0}</p>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 border-l-4 border-l-amber-400 p-4">
-          <p className="text-xs text-gray-500 mb-1">Tareas pendientes hoy</p>
+          <p className="text-xs text-gray-500 mb-1">Pending tasks today</p>
           <p className="text-2xl font-semibold text-amber-500">{pendingTasks ?? 0}</p>
         </div>
       </div>
 
-      {/* KPI Row 2 — Reservas del día (desde iCal) */}
+      {/* KPI Row 2 — Daily bookings (from iCal) */}
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-white rounded-xl border border-gray-200 border-l-4 border-l-[#4af8d4] p-4">
-          <p className="text-xs text-gray-500 mb-1">Check-ins hoy</p>
+          <p className="text-xs text-gray-500 mb-1">Check-ins today</p>
           <p className="text-2xl font-semibold text-[#004F59]">{checkInsToday ?? 0}</p>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 border-l-4 border-l-[#4af8d4] p-4">
-          <p className="text-xs text-gray-500 mb-1">Check-outs hoy</p>
+          <p className="text-xs text-gray-500 mb-1">Check-outs today</p>
           <p className="text-2xl font-semibold text-[#004F59]">{checkOutsToday ?? 0}</p>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 border-l-4 border-l-gray-200 p-4">
-          <p className="text-xs text-gray-500 mb-1">Reservas activas</p>
+          <p className="text-xs text-gray-500 mb-1">Active bookings</p>
           <p className="text-2xl font-semibold text-gray-400">—</p>
         </div>
       </div>
@@ -119,7 +119,7 @@ export default async function DashboardPage() {
 
       {/* Live Feed */}
       <div className="bg-white rounded-xl border border-gray-200 p-5">
-        <h2 className="text-sm font-semibold text-gray-900 mb-4">Actividad en tiempo real</h2>
+        <h2 className="text-sm font-semibold text-gray-900 mb-4">Real-time activity</h2>
         <LiveFeed
           initialCompletions={
             ((completions ?? []) as unknown as Array<{

@@ -52,9 +52,10 @@ export default function LoginPage() {
             {callbackUrl && (
               <div className="bg-teal-50 border border-teal-200 rounded-lg p-3">
                 <p className="text-xs text-teal-700 mb-2">Didn't get the email? Access directly:</p>
+
                 
                   href={callbackUrl}
-                  className="block w-full text-center bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 transition-colors"
+                  className="block w-full text-center bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   Access dashboard →
                 </a>
@@ -63,25 +64,25 @@ export default function LoginPage() {
 
             <button
               onClick={() => { setStatus('idle'); setCallbackUrl(null) }}
-              className="w-full text-sm text-gray-400 hover:text-gray-600 text-center"
+              className="w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-50 transition-all"
             >
-              Back
+              Send another link
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email
               </label>
               <input
                 id="email"
                 type="email"
-                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@email.com"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+                required
+                placeholder="you@example.com"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
               />
             </div>
 
@@ -92,13 +93,9 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="w-full bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {status === 'loading' ? 'Sending...' : 'Send access link'}
             </button>
           </form>
         )}
-      </div>
-    </div>
-  )
-}

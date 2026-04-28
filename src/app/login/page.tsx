@@ -51,7 +51,7 @@ export default function LoginPage() {
 
             {callbackUrl && (
               <div className="bg-teal-50 border border-teal-200 rounded-lg p-3">
-                <p className="text-xs text-teal-700 mb-2">Didn't get the email? Access directly:</p>
+                <p className="text-xs text-teal-700 mb-2">Didn&apos;t get the email? Access directly:</p>
 
                 <a
                   href={callbackUrl}

@@ -87,13 +87,13 @@ export default function StaffPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-gray-900">Staff</h1>
-          <p className="text-sm text-gray-500 mt-0.5">{staff.length} miembros registrados</p>
+          <p className="text-sm text-gray-500 mt-0.5">{staff.length} registered members</p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
           className="bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 transition-colors"
         >
-          + Agregar miembro
+          + Add member
         </button>
       </div>
 
@@ -139,11 +139,11 @@ export default function StaffPage() {
             <div className="flex gap-2">
               <button type="submit" disabled={saving}
                 className="bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 disabled:opacity-50 transition-colors">
-                {saving ? 'Guardando...' : 'Agregar'}
+                {saving ? 'Saving...' : 'Agregar'}
               </button>
               <button type="button" onClick={() => setShowForm(false)}
                 className="py-2 px-4 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">
-                Cancelar
+                Cancel
               </button>
             </div>
           </form>

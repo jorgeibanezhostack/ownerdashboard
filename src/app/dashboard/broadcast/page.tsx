@@ -17,7 +17,7 @@ export default async function BroadcastPage() {
     <div className="max-w-lg">
       <h1 className="text-xl font-semibold text-gray-900 mb-1">Broadcast</h1>
       <p className="text-sm text-gray-500 mb-6">
-        Envía un mensaje o anuncio a todo el staff o a un grupo seleccionado.
+        Send a message or announcement to all staff or a selected group.
       </p>
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <BroadcastForm staff={staff ?? []} />

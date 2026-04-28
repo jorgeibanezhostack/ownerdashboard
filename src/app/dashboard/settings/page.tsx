@@ -47,18 +47,18 @@ export default function SettingsPage() {
   return (
     <div className="max-w-lg space-y-6">
       <div>
-        <h1 className="text-xl font-semibold text-gray-900">Ajustes de propiedad</h1>
-        <p className="text-sm text-gray-500 mt-1">Configura los datos de tu propiedad.</p>
+        <h1 className="text-xl font-semibold text-gray-900">Property settings</h1>
+        <p className="text-sm text-gray-500 mt-1">Configure your property details.</p>
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <h2 className="text-sm font-semibold text-gray-700 mb-4">Nombre de la propiedad</h2>
+        <h2 className="text-sm font-semibold text-gray-700 mb-4">Property name</h2>
         <form onSubmit={handleSave} className="space-y-4">
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Nombre de la propiedad"
+            placeholder="Property name"
             className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600"
           />
           {msg && (
@@ -69,7 +69,7 @@ export default function SettingsPage() {
             disabled={status === 'loading' || name.trim() === original}
             className="bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 disabled:opacity-40 transition-colors"
           >
-            {status === 'loading' ? 'Guardando...' : 'Guardar cambios'}
+            {status === 'loading' ? 'Saving...' : 'Save changes'}
           </button>
         </form>
       </div>

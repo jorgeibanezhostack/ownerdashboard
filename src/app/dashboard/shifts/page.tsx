@@ -15,9 +15,9 @@ export default async function ShiftsPage() {
 
   return (
     <div className="max-w-lg">
-      <h1 className="text-xl font-semibold text-gray-900 mb-1">Crear turno</h1>
+      <h1 className="text-xl font-semibold text-gray-900 mb-1">Create shift</h1>
       <p className="text-sm text-gray-500 mb-6">
-        El staff asignado recibirá una notificación automática.
+        Assigned staff will receive an automatic notification.
       </p>
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <ShiftCreateForm staff={staff ?? []} />

@@ -22,7 +22,7 @@ function nights(ci: string, co: string) {
 }
 
 function fmt(d: string) {
-  return new Date(d + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })
+  return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
 }
 
 export default function BookingsPage() {
@@ -63,7 +63,7 @@ export default function BookingsPage() {
     })
     const data = await res.json()
     if (res.ok) {
-      setMsg('Reserva agregada.'); setMsgType('ok')
+      setMsg('Booking added.'); setMsgType('ok')
       setForm({ guest_name: '', check_in: '', check_out: '', room: '', source: 'manual', guests_count: '1', notes: '' })
       setTab('list'); load()
     } else { setMsg(data.error ?? 'Error'); setMsgType('err') }
@@ -81,7 +81,7 @@ export default function BookingsPage() {
     })
     const data = await res.json()
     if (res.ok) {
-      setMsg(`${data.imported} reservas importadas.`); setMsgType('ok')
+      setMsg(`${data.imported} bookings imported.`); setMsgType('ok')
       setIcalUrl(''); load()
     } else { setMsg(data.error ?? 'Error'); setMsgType('err') }
     setSaving(false)
@@ -100,8 +100,8 @@ export default function BookingsPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold text-gray-900">Reservas</h1>
-          <p className="text-sm text-gray-500 mt-0.5">{upcoming.length} próximas · {past.length} pasadas</p>
+          <h1 className="text-xl font-semibold text-gray-900">Bookings</h1>
+          <p className="text-sm text-gray-500 mt-0.5">{upcoming.length} upcoming · {past.length} past</p>
         </div>
         <div className="flex gap-2">
           <button onClick={() => setTab('ical')}
@@ -119,16 +119,16 @@ export default function BookingsPage() {
 
       {tab === 'add' && (
         <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h2 className="text-sm font-semibold text-gray-700 mb-4">Agregar reserva manual</h2>
+          <h2 className="text-sm font-semibold text-gray-700 mb-4">Add manual booking</h2>
           <form onSubmit={handleAdd} className="space-y-3">
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Nombre del huésped</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Guest name</label>
                 <input required value={form.guest_name} onChange={e => setForm(f => ({ ...f, guest_name: e.target.value }))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Habitación / Cama</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Room / Bed</label>
                 <input value={form.room} onChange={e => setForm(f => ({ ...f, room: e.target.value }))}
                   placeholder="Ej: Dorm 4, Bed 2"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600" />
@@ -146,13 +146,13 @@ export default function BookingsPage() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Huéspedes</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Guests</label>
                 <input type="number" min="1" value={form.guests_count} onChange={e => setForm(f => ({ ...f, guests_count: e.target.value }))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600" />
               </div>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Canal</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Channel</label>
               <select value={form.source} onChange={e => setForm(f => ({ ...f, source: e.target.value }))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600">
                 <option value="manual">Manual</option>
@@ -162,18 +162,18 @@ export default function BookingsPage() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Notas</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Notes</label>
               <textarea value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
                 rows={2} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600 resize-none" />
             </div>
             <div className="flex gap-2">
               <button type="submit" disabled={saving}
                 className="bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 disabled:opacity-50 transition-colors">
-                {saving ? 'Guardando...' : 'Agregar reserva'}
+                {saving ? 'Saving...' : 'Add booking'}
               </button>
               <button type="button" onClick={() => setTab('list')}
                 className="py-2 px-4 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">
-                Cancelar
+                Cancel
               </button>
             </div>
           </form>
@@ -182,11 +182,11 @@ export default function BookingsPage() {
 
       {tab === 'ical' && (
         <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h2 className="text-sm font-semibold text-gray-700 mb-1">Sincronizar desde iCal</h2>
-          <p className="text-xs text-gray-400 mb-4">Importa reservas desde Airbnb, Booking.com u otro canal via URL de calendario.</p>
+          <h2 className="text-sm font-semibold text-gray-700 mb-1">Sync from iCal</h2>
+          <p className="text-xs text-gray-400 mb-4">Import bookings from Airbnb, Booking.com or other channel via calendar URL.</p>
           <form onSubmit={handleIcal} className="space-y-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Canal</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Channel</label>
               <select value={icalSource} onChange={e => setIcalSource(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600">
                 <option value="airbnb">Airbnb</option>
@@ -195,22 +195,22 @@ export default function BookingsPage() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">URL del calendario (.ics)</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Calendar URL (.ics)</label>
               <input type="url" required value={icalUrl} onChange={e => setIcalUrl(e.target.value)}
                 placeholder="https://www.airbnb.com/calendar/ical/..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-600" />
             </div>
             <p className="text-xs text-gray-400">
-              Airbnb: Calendario → Exportar → Copiar link | Booking.com: Extranet → Reservas → iCal
+              Airbnb: Calendario → Exportar → Copiar link | Booking.com: Extranet → Bookings → iCal
             </p>
             <div className="flex gap-2">
               <button type="submit" disabled={saving}
                 className="bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 disabled:opacity-50 transition-colors">
-                {saving ? 'Importando...' : 'Importar reservas'}
+                {saving ? 'Importing...' : 'Import bookings'}
               </button>
               <button type="button" onClick={() => setTab('list')}
                 className="py-2 px-4 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">
-                Cancelar
+                Cancel
               </button>
             </div>
           </form>
@@ -218,13 +218,13 @@ export default function BookingsPage() {
       )}
 
       {loading ? (
-        <p className="text-sm text-gray-400">Cargando reservas...</p>
+        <p className="text-sm text-gray-400">Loading bookings...</p>
       ) : (
         <div className="space-y-4">
           {upcoming.length > 0 && (
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
               <div className="px-5 py-3 border-b border-gray-100">
-                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Próximas</span>
+                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Upcoming</span>
               </div>
               <ul className="divide-y divide-gray-50">
                 {upcoming.map(b => (
@@ -239,12 +239,12 @@ export default function BookingsPage() {
                       <p className="text-xs text-gray-500 mt-0.5">
                         {fmt(b.check_in)} → {fmt(b.check_out)} · {nights(b.check_in, b.check_out)}n
                         {b.room && ` · ${b.room}`}
-                        {b.guests_count > 1 && ` · ${b.guests_count} huéspedes`}
+                        {b.guests_count > 1 && ` · ${b.guests_count} guests`}
                       </p>
                     </div>
                     <button onClick={() => handleDelete(b.id)}
                       className="text-xs text-gray-400 hover:text-red-500 transition-colors shrink-0">
-                      Eliminar
+                      Delete
                     </button>
                   </li>
                 ))}
@@ -255,7 +255,7 @@ export default function BookingsPage() {
           {past.length > 0 && (
             <div className="bg-white rounded-xl border border-gray-100 overflow-hidden opacity-60">
               <div className="px-5 py-3 border-b border-gray-100">
-                <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Pasadas ({past.length})</span>
+                <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Past ({past.length})</span>
               </div>
               <ul className="divide-y divide-gray-50">
                 {past.slice(0, 5).map(b => (
@@ -275,8 +275,8 @@ export default function BookingsPage() {
 
           {bookings.length === 0 && (
             <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-              <p className="text-gray-400 text-sm">Sin reservas registradas.</p>
-              <p className="text-gray-400 text-xs mt-1">Agrega manualmente o sincroniza desde iCal.</p>
+              <p className="text-gray-400 text-sm">No bookings registered.</p>
+              <p className="text-gray-400 text-xs mt-1">Add manually or sync from iCal.</p>
             </div>
           )}
         </div>

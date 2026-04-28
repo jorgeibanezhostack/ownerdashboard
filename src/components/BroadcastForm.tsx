@@ -53,7 +53,7 @@ export default function BroadcastForm({ staff }: { staff: StaffUser[] }) {
     if (res.ok) {
       const data = await res.json()
       setStatus('success')
-      setMessage(`Mensaje enviado a ${data.sent} miembro${data.sent !== 1 ? 's' : ''} del staff.`)
+      setMessage(`Message enviado a ${data.sent} miembro${data.sent !== 1 ? 's' : ''} del staff.`)
       setTitle('')
       setBody('')
       setLink('')
@@ -67,11 +67,11 @@ export default function BroadcastForm({ staff }: { staff: StaffUser[] }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
         <input
           type="text"
           required
-          placeholder="Ej: Reunión hoy a las 6pm"
+          placeholder="E.g.: Meeting today at 6pm"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
@@ -79,11 +79,11 @@ export default function BroadcastForm({ staff }: { staff: StaffUser[] }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
         <textarea
           required
           rows={3}
-          placeholder="Escribe tu mensaje aquí..."
+          placeholder="Write your message here..."
           value={body}
           onChange={(e) => setBody(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 resize-none"
@@ -92,7 +92,7 @@ export default function BroadcastForm({ staff }: { staff: StaffUser[] }) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Enlace (opcional)
+          Link (optional)
         </label>
         <input
           type="text"
@@ -104,7 +104,7 @@ export default function BroadcastForm({ staff }: { staff: StaffUser[] }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Destinatarios</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Recipients</label>
         <label className="flex items-center gap-2 mb-2 cursor-pointer">
           <input
             type="checkbox"
@@ -115,7 +115,7 @@ export default function BroadcastForm({ staff }: { staff: StaffUser[] }) {
             }}
             className="rounded border-gray-300"
           />
-          <span className="text-sm text-gray-700">Todo el staff activo</span>
+          <span className="text-sm text-gray-700">All active staff</span>
         </label>
 
         {!sendToAll && (
@@ -151,7 +151,7 @@ export default function BroadcastForm({ staff }: { staff: StaffUser[] }) {
         disabled={status === 'loading' || (!sendToAll && selectedIds.length === 0)}
         className="w-full bg-gray-900 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
-        {status === 'loading' ? 'Enviando...' : 'Enviar notificación'}
+        {status === 'loading' ? 'Enviando...' : 'Send notification'}
       </button>
     </form>
   )

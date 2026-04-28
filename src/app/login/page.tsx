@@ -53,7 +53,7 @@ export default function LoginPage() {
               <div className="bg-teal-50 border border-teal-200 rounded-lg p-3">
                 <p className="text-xs text-teal-700 mb-2">Didn't get the email? Access directly:</p>
 
-                
+                <a
                   href={callbackUrl}
                   className="block w-full text-center bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-teal-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
